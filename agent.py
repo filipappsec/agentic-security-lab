@@ -35,13 +35,11 @@ agent = create_react_agent(
     prompt=SYSTEM_PROMPT,
 )
 
-# Konfiguracja pamieci
-MAX_HISTORY_PAIRS = 20  # 20 par = 40 wiadomosci (user + agent)
+MAX_HISTORY_PAIRS = 20
 conversation_history = []
 
 
 def trim_history():
-    """Trzymaj ostatnie N par wiadomosci. Stare usun."""
     global conversation_history
     max_messages = MAX_HISTORY_PAIRS * 2
     if len(conversation_history) > max_messages:
@@ -50,7 +48,7 @@ def trim_history():
         logger.info("History trimmed: removed %d oldest messages", removed)
 
 
-def chat(user_input: str) -> str:
+def chat(user_input):
     logger.info("USER: %s", user_input)
 
     conversation_history.append(("human", user_input))
@@ -66,7 +64,7 @@ def chat(user_input: str) -> str:
 
 
 def main():
-    print("Agent gotowy. Wpisz 'quit' aby wyjsc. Wpisz 'reset' aby wyczyscic pamiec.\n")
+    print("Agent ready. Type 'quit' to exit, 'reset' to clear memory.\n")
 
     while True:
         try:
@@ -79,7 +77,7 @@ def main():
 
         if user_input.lower() == "reset":
             conversation_history.clear()
-            print("\nAgent: Pamiec wyczyszczona. Zaczynamy od nowa.\n")
+            print("\nAgent: Memory cleared.\n")
             continue
 
         if not user_input:

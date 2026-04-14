@@ -1,4 +1,3 @@
-import os
 import logging
 
 from langchain_core.tools import tool
@@ -18,13 +17,10 @@ def _get_collection():
 
 @tool
 def search_customers(query: str, max_results: int = 5) -> str:
-    """Search customer database by description (e.g. 'customer from Warsaw', 'high salary')."""
+    """Search customer database by description (e.g. 'high salary', 'from Warsaw')."""
     collection = _get_collection()
 
-    results = collection.query(
-        query_texts=[query],
-        n_results=max_results
-    )
+    results = collection.query(query_texts=[query], n_results=max_results)
 
     docs = results["documents"][0]
     if not docs:
@@ -54,5 +50,4 @@ def get_customer_by_email(email: str) -> str:
 def count_customers() -> str:
     """Return the total number of customers in the database."""
     collection = _get_collection()
-    count = collection.count()
-    return f"Total customers in database: {count}"
+    return f"Total customers in database: {collection.count()}"
