@@ -9,3 +9,11 @@ __pycache__/
 .DS_Store
 *.log
 *.log
+token.json
+credentials.json
+venv/
+__pycache__/
+*.pyc
+logs/
+data/chroma_db/
+.env

@@ -1,0 +1,29 @@
+{
+  "conversation_summaries": [],
+  "learned_preferences": [],
+  "contact_notes": {},
+  "task_history": [
+    {
+      "agent": "data",
+      "task": "search customers with high salaries",
+      "summary": "I found 5 customers with high salaries:\n\n1. **Michael Mcgee**\n   - Email: ahall@example.net\n   - Phone: 001-728-620-8390x3020\n   - Address: Unit 1907 Box 4672, DPO AE 92107\n\n2. **Johnny Torres**\n   - Email: hoffmanrichard@example.com\n   - Phone: 783-575-5757\n   - Address: PSC 2961, Box 5623, APO AA ",
+      "ts": "2026-04-14T17:25:23.968079"
+    },
+    {
+      "agent": "comms",
+      "task": "read recent emails",
+      "summary": "I have read the recent emails. Here are the details:\n\n1. **From:** Filip Adamczuk  \n   **Subject:** Re:  \n   **Date:** Tue, 14 Apr 2026  \n   **Body:** Requests to check the weather, remind about a meeting, find 5 highest-paid clients, and check the euro exchange rate.\n\n2. **From:** Filip Adamczuk  \n",
+      "ts": "2026-04-14T17:25:29.947468"
+    },
+    {
+      "agent": "orchestrator",
+      "summary": "Znalaz\u0142em pi\u0119ciu klient\u00f3w z wysokimi zarobkami:\n\n1. **Michael Mcgee**\n   - Email: ahall@example.net\n   - Telefon: 001-728-620-8390x3020\n   - Adres: Unit 1907 Box 4672, DPO AE 92107\n\n2. **Johnny Torres**\n   - Email: hoffmanrichard@example.com\n   - Telefon: 783-575-5757\n   - Adres: PSC 2961, Box 5623,",
+      "ts": "2026-04-14T17:25:38.139058"
+    },
+    {
+      "agent": "orchestrator",
+      "summary": "Znalaz\u0142em pi\u0119ciu klient\u00f3w z wysokimi zarobkami:\n\n1. **Michael Mcgee**\n   - Email: ahall@example.net\n   - Telefon: 001-728-620-8390x3020\n\n2. **Johnny Torres**\n   - Email: hoffmanrichard@example.com\n   - Telefon: 783-575-5757\n\n3. **Shannon Robinson**\n   - Email: benjamin76@example.com\n   - Telefon: 00",
+      "ts": "2026-04-14T17:30:28.547415"
+    }
+  ]
+}
