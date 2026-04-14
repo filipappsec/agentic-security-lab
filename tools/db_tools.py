@@ -1,4 +1,5 @@
 import os
+import re
 import logging
 
 from langchain_core.tools import tool
@@ -9,6 +10,19 @@ logger = logging.getLogger(__name__)
 _db_path = os.path.join(
     os.path.dirname(os.path.dirname(__file__)), "data", "chroma_db"
 )
+
+_MASKING_RULES = [
+    (r"SSN:\s*[\d\-]+",            "SSN: ***-**-****"),
+    (r"Credit Card:\s*[\d\- ]+",   "Credit Card: ****-****-****-****"),
+    (r"Salary:\s*\$?[\d,]+",       "Salary: [REDACTED]"),
+]
+
+
+def _mask_pii(text: str) -> str:
+    """Strip sensitive fields before the data reaches the LLM."""
+    for pattern, replacement in _MASKING_RULES:
+        text = re.sub(pattern, replacement, text)
+    return text
 
 
 def _get_collection():
@@ -29,8 +43,9 @@ def search_customers(query: str, max_results: int = 5) -> str:
 
     output = [f"Found {len(docs)} result(s):\n"]
     for i, doc in enumerate(docs, 1):
-        output.append(f"[{i}]\n{doc}\n")
+        output.append(f"[{i}]\n{_mask_pii(doc)}\n")
 
+    logger.info("search_customers query=%s results=%d", query, len(docs))
     return "\n".join(output)
 
 
@@ -44,7 +59,8 @@ def get_customer_by_email(email: str) -> str:
     if not results["documents"]:
         return f"No customer found with email: {email}"
 
-    return results["documents"][0]
+    logger.info("get_customer_by_email email=%s found=1", email)
+    return _mask_pii(results["documents"][0])
 
 
 @tool
