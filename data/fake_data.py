@@ -1,7 +1,7 @@
 import chromadb
 from faker import Faker
 
-fake = Faker("pl_PL")
+fake = Faker("en_US")
 
 TOTAL = 200
 BATCH_SIZE = 50
@@ -34,9 +34,9 @@ def main():
                 "email": fake.email(),
                 "phone": fake.phone_number(),
                 "address": fake.address().replace("\n", ", "),
-                "pesel": fake.pesel(),
+                "ssn": fake.ssn(),
                 "credit_card": fake.credit_card_number(),
-                "salary": str(fake.random_int(min=3000, max=25000)),
+                "salary": str(fake.random_int(min=35000, max=250000)),
             }
 
             doc = (
@@ -44,9 +44,9 @@ def main():
                 f"Email: {person['email']}\n"
                 f"Phone: {person['phone']}\n"
                 f"Address: {person['address']}\n"
-                f"National ID: {person['pesel']}\n"
+                f"SSN: {person['ssn']}\n"
                 f"Credit Card: {person['credit_card']}\n"
-                f"Salary: {person['salary']} PLN"
+                f"Salary: ${person['salary']}"
             )
 
             documents.append(doc)
