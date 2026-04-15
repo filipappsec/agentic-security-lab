@@ -17,51 +17,38 @@ _MASKING_RULES = [
     (r"Salary:\s*\$?[\d,]+",       "Salary: [REDACTED]"),
 ]
 
-
 def _mask_pii(text: str) -> str:
-    """Strip sensitive fields before the data reaches the LLM."""
     for pattern, replacement in _MASKING_RULES:
         text = re.sub(pattern, replacement, text)
     return text
-
 
 def _get_collection():
     client = chromadb.PersistentClient(path=_db_path)
     return client.get_collection("customers")
 
-
 @tool
 def search_customers(query: str, max_results: int = 5) -> str:
     """Search customer database by description (e.g. 'high salary', 'from Warsaw')."""
     collection = _get_collection()
-
     results = collection.query(query_texts=[query], n_results=max_results)
-
     docs = results["documents"][0]
     if not docs:
         return f"No customers matching: {query}"
-
     output = [f"Found {len(docs)} result(s):\n"]
     for i, doc in enumerate(docs, 1):
         output.append(f"[{i}]\n{_mask_pii(doc)}\n")
-
     logger.info("search_customers query=%s results=%d", query, len(docs))
     return "\n".join(output)
-
 
 @tool
 def get_customer_by_email(email: str) -> str:
     """Look up a specific customer by their email address."""
     collection = _get_collection()
-
     results = collection.get(where={"email": email})
-
     if not results["documents"]:
         return f"No customer found with email: {email}"
-
     logger.info("get_customer_by_email email=%s found=1", email)
     return _mask_pii(results["documents"][0])
-
 
 @tool
 def count_customers() -> str:
