@@ -158,7 +158,12 @@ def data_node(state: PipelineState) -> dict:
 
 def comms_node(state: PipelineState) -> dict:
     results = []
+    data_results = state.get("data_results") or []
     for task in state.get("comms_tasks", []):
+        # Dołącz wyniki z DATA do treści zadania dla COMMS
+        if data_results:
+            joined = "\n\n".join(data_results)
+            task = f"{task}\n\nDATA_RESULTS:\n{joined}"
         step_print("ACT", f"Comms Agent executing: {task[:80]}...")
         out = comms_agent.handle(task)
         step_print("OBSERVE", f"Comms result: {out[:150]}...")

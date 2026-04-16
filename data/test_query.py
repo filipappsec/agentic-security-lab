@@ -1,5 +1,4 @@
 import chromadb
-
 DB_PATH = "./data/chroma_db"
 
 def main():
